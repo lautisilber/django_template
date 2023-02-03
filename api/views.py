@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpRequest, HttpResponse, HttpResponseNot
 from django.apps import apps
 import json
 from django.db.models import Model
+from typing import Type
 
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -17,7 +18,7 @@ hidden_models = [
 ]
 
 
-def _get_models() -> dict[str, Model]:
+def _get_models() -> dict[str, Type[Model]]:
     models = { model.__name__.lower():model for model in apps.get_models() }
     models = { k:v for k, v in models.items() if k not in hidden_models }
     return models
